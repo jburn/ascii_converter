@@ -1,5 +1,8 @@
 from PIL import Image
 from values import *
+import os
+import inspect
+print ()
 
 
 def convert_to_greyscale(img):
@@ -66,6 +69,7 @@ def chunks_to_braille(list_of_chunks):
 
 
 def ascii_convert(path, divid):
+    print(divid)
     result = []
 
     #path = input("Enter a valid pathname:\n")
@@ -74,6 +78,7 @@ def ascii_convert(path, divid):
         image = Image.open(path)
     except:
         print("Invalid file or path!")
+        exit(1)
 
     """
     while True:
@@ -94,6 +99,8 @@ def ascii_convert(path, divid):
     
     result = "\n".join(result)
     print(result)
+    with open("{}/output.txt".format(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'w') as fileout:
+        fileout.write(result)
     return result
 
 
@@ -107,6 +114,7 @@ def braille_convert(path, divid):
         image = Image.open(path)
     except:
         print("Invalid file or path!")
+        exit(1)
 
     """
     while True:
@@ -138,7 +146,9 @@ def braille_convert(path, divid):
         result += "\n"
     
     print(result)
-    return result
+    with open("output.txt", 'w') as fileout:
+        fileout.write(result)
+    #return result
 
 
 if __name__ == "__main__":

@@ -2,7 +2,6 @@ from PIL import Image
 from values import *
 import os
 import inspect
-print ()
 
 
 def convert_to_greyscale(img):
@@ -68,27 +67,16 @@ def chunks_to_braille(list_of_chunks):
     return braillelist
 
 
-def ascii_convert(path, divid):
+def ascii_convert(path, divid=10):
     print(divid)
     result = []
 
-    #path = input("Enter a valid pathname:\n")
-    
     try:
         image = Image.open(path)
     except:
         print("Invalid file or path!")
         exit(1)
 
-    """
-    while True:
-        divid = int(input("Enter resize divider: "))
-        if divid < 1:
-            print("Invalid value!")
-        else:
-            break
-    """
-    
     resized = resize_image(image, divid)
     width = resized.size[0]
     ascii_data = pixels_to_ascii(convert_to_greyscale(resized))
@@ -99,31 +87,21 @@ def ascii_convert(path, divid):
     
     result = "\n".join(result)
     print(result)
-    with open("{}/output.txt".format(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'w') as fileout:
+    with open("{}/ascii_output.txt".format(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'w') as fileout:
         fileout.write(result)
     return result
 
 
-def braille_convert(path, divid):
+def braille_convert(path, divid=10):
     worklist1 = []
     worklist2 = []
     result = ""
-    #path = input("Enter a valid pathname:\n")
 
     try:
         image = Image.open(path)
     except:
         print("Invalid file or path!")
         exit(1)
-
-    """
-    while True:
-        divid = int(input("Enter resize divider: "))
-        if divid < 1:
-            print("Invalid value!")
-        else:
-            break
-    """
 
     resized = resize_image(image, divid)
     width, height = resized.size
@@ -146,9 +124,6 @@ def braille_convert(path, divid):
         result += "\n"
     
     print(result)
-    with open("output.txt", 'w') as fileout:
-        fileout.write(result)
-    #return result
 
 
 if __name__ == "__main__":

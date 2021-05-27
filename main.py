@@ -4,7 +4,7 @@ from tkinter import filedialog
 
 
 a = {
-    "divider": 1}
+    "divider": 10}
 
 window = Tk()
 
@@ -21,7 +21,6 @@ def filebrowse():
 
 def change_divider():
     a["divider"] = int(divid_entry.get())
-    print(a["divider"])
 
 
 window.title('Ascii/Braille image converter')

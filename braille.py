@@ -1,6 +1,8 @@
 from converters import *
 import sys
 
+# File for simple cmd execution 
+
 if __name__ == "__main__":
     try:
         if sys.argv[1] == "-ds":

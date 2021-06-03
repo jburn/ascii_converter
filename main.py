@@ -2,7 +2,7 @@ from converters import *
 from tkinter import *
 from tkinter import filedialog
 
-
+# Image resolution divider, 10 is default
 a = {
     "divider": 10}
 
@@ -12,6 +12,7 @@ divid = StringVar(window, "{}".format(a["divider"]))
 
 status = StringVar(window, "Choose conversion type") 
 
+# Function to browse filesystem for an image file
 def filebrowse():
     status.set("Choosing a file")
     filepath = filedialog.askopenfilename(initialdir = "/", title="Explore files", filetypes=(("Image files", "*.png*"), ("All files", "*.*")))
@@ -19,6 +20,7 @@ def filebrowse():
     print(filepath)
     return filepath
 
+# Function that changes the image resolution divider
 def change_divider():
     a["divider"] = int(divid_entry.get())
 

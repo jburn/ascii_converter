@@ -3,17 +3,22 @@ from values import *
 import os
 import inspect
 
+"""
+Author and date: Juho Bruun 28.5.2021
+This file holds the logic for the image conversion executed in the braille.py, ascii.py and main.py files
+"""
 
+# Convert image to greyscale
 def convert_to_greyscale(img):
     return img.convert("L")
 
-
+# Resize the image to a smaller resolution according to the divider given
 def resize_image(img, divider):
     width = img.size[0] // divider
     height = img.size[1] // divider
     return img.resize((width, int(height/1.65)))
 
-
+# Set pixels into ascii characters according to the greyscale value (0-255) they have
 def pixels_to_ascii(img):
     ascii_list = []
     pixels = img.getdata()
@@ -21,7 +26,7 @@ def pixels_to_ascii(img):
         ascii_list.append("".join(ASCII[pixel//25]))
     return ascii_list
 
-
+# Transform one dimensional image data array into a two dimensional data array
 def onedim2twodim(list1d, width):
     list2d = []
     datalen = len(list1d)
@@ -29,7 +34,7 @@ def onedim2twodim(list1d, width):
         list2d.append(list1d[j:j+width])
     return list2d
 
-
+# Split the two dimensional image data array into 2x3 dimensional chunks of pixels
 def split_to_braille_chunks(list2d):
     n = 0
     height = len(list2d)
@@ -48,7 +53,7 @@ def split_to_braille_chunks(list2d):
 
     return chunklist
 
-
+# Transform the list of chunks into braille characters
 def chunks_to_braille(list_of_chunks):
     dict_values = []
     braillelist = []
@@ -66,7 +71,7 @@ def chunks_to_braille(list_of_chunks):
 
     return braillelist
 
-
+# Executing function for the ascii conversion
 def ascii_convert(path, divid=10):
     print(divid)
     result = []
@@ -91,7 +96,7 @@ def ascii_convert(path, divid=10):
         fileout.write(result)
     return result
 
-
+# Executing function for the braille conversion
 def braille_convert(path, divid=10):
     worklist1 = []
     worklist2 = []

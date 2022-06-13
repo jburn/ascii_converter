@@ -73,14 +73,15 @@ def chunks_to_braille(list_of_chunks):
 
 # Executing function for the ascii conversion
 def ascii_convert(path, divid=10):
-    print(divid)
     result = []
 
     try:
         image = Image.open(path)
-    except:
+    except FileNotFoundError:
         print("Invalid file or path!")
-        exit(1)
+        return
+    except:
+        return "No file chosen"
 
     resized = resize_image(image, divid)
     width = resized.size[0]
@@ -104,10 +105,12 @@ def braille_convert(path, divid=10):
 
     try:
         image = Image.open(path)
-    except:
+    except FileNotFoundError:
         print("Invalid file or path!")
-        exit(1)
-
+        return
+    except:
+        return "No file chosen"
+        
     resized = resize_image(image, divid)
     width, height = resized.size
     data = list(resized.getdata(0))
@@ -128,9 +131,5 @@ def braille_convert(path, divid=10):
         result += "".join(n)
         result += "\n"
     
+    print("Printing result to terminal...")
     print(result)
-
-
-if __name__ == "__main__":
-    #braille_convert()
-    ascii_convert()

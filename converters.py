@@ -93,7 +93,10 @@ def ascii_convert(path, divid=10):
     
     result = "\n".join(result)
     print(result)
-    with open("{}/ascii_output.txt".format(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))), 'w') as fileout:
+    split_path = path.split('/')
+    edited_filename = split_path[-1]
+    edited_file_folder = "/".join(path.split('/')[:-1])
+    with open(f"{edited_file_folder}/{edited_filename}_ascii_output.txt", 'w+') as fileout:
         fileout.write(result)
     return result
 
